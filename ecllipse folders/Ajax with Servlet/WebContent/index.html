@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EmployeeFramework</title>
+<style>
+  
+  .heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 20px;
+  }
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  .button {
+    padding: 8px 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .choice {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="heading">Employee Details</div>
+  <label class="label">Name</label>
+  <input class="input" type="text" id="name">
+  <label class="label">Number</label>
+  <input class="input" type="text" id="number">
+  <label class="label">Job</label>
+  <input class="input" type="text" id="job">
+  <label class="label">Salary</label>
+  <input class="input" type="text" id="salary">
+  <select class="choice" id="role">
+    <option value="View Mode">View Mode</option>
+    <option value="Edit Mode">Edit Mode</option>
+  </select>
+<button class="button" id="btnFirst" name="button" value="First">First</button>
+  <button class="button" id="next" name="button" value="Next">Next</button>
+  <button class="button" id="prev" name="button" value="Prev">Prev</button>
+  <button class="button" id="last" name="button" value="Last">Last</button><br><br>
+  <button class="button" id="add">Add</button>
+  <button class="button" id="edit">Edit</button>
+  <button class="button" id="del">Del</button>
+  <button class="button" id="save">Save</button><br><br>
+  <button class="button" id="search">Search</button>
+  <button class="button" id="clear">Clear</button>
+  <button class="button" id="exit">Exit</button>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	var var1="";
+    document.getElementById("btnFirst").addEventListener("click", function() {
+        var buttonValue =this.value;
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8080/Ajax with Servlet/EmployeeServlet?button=First", true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+                
+                if (response.name) {
+                    document.getElementById("name").value = response.name;
+                    document.getElementById("number").value = response.number;
+                    document.getElementById("job").value = response.job;
+                    document.getElementById("salary").value = response.salary;
+                } else {
+                    console.log(response);
+                }
+            }
+        };
+        
+        xhr.onerror = function() {
+            console.log("Request failed");
+        };
+        
+        xhr.send();
+    });
+    document.getElementById("next").addEventListener("click", function() {
+        var buttonValue =this.value;
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `http://localhost:8080/Ajax with Servlet/EmployeeServlet?button=Next`, true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+                
+                if (response.name) {
+                    document.getElementById("name").value = response.name;
+                    document.getElementById("number").value = response.number;
+                    document.getElementById("job").value = response.job;
+                    document.getElementById("salary").value = response.salary;
+                } else {
+                    console.log(response);
+                }
+            }
+        };
+        
+        xhr.onerror = function() {
+            console.log("Request failed");
+        };
+        
+        xhr.send();
+    });
+    document.getElementById("prev").addEventListener("click", function() {
+        var buttonValue =this.value;
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `http://localhost:8080/EmployeeServlet/EmployeeServlet?button=Prev`, true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+                
+                if (response.name) {
+                    document.getElementById("name").value = response.name;
+                    document.getElementById("number").value = response.number;
+                    document.getElementById("job").value = response.job;
+                    document.getElementById("salary").value = response.salary;
+                } else {
+                    console.log(response);
+                }
+            }
+        };
+        
+        xhr.onerror = function() {
+            console.log("Request failed");
+        };
+        
+        xhr.send();
+    });
+    document.getElementById("last").addEventListener("click", function() {
+        var buttonValue =this.value;
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `http://localhost:8080/EmployeeServlet/EmployeeServlet?button=Last`, true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+                
+                if (response.name) {
+                    document.getElementById("name").value = response.name;
+                    document.getElementById("number").value = response.number;
+                    document.getElementById("job").value = response.job;
+                    document.getElementById("salary").value = response.salary;
+                } else {
+                    console.log(response);
+                }
+            }
+        };
+        
+        xhr.onerror = function() {
+            console.log("Request failed");
+        };
+        
+        xhr.send();
+    });
+    document.getElementById("add").addEventListener("click", function() {
+    	  document.getElementById("name").value = "";
+          document.getElementById("number").value ="";
+          document.getElementById("job").value = "";
+          document.getElementById("salary").value = "";
+          var1="add";
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", `http://localhost:8080/EmployeeServlet/EmployeeServlet?button=Add`, true);
+          
+          xhr.onload = function() {
+              if (xhr.status === 200) {
+                  var response = JSON.parse(xhr.responseText);
+                  console.log(response);
+                  
+                  if (response.message) {
+                      alert(response.message);
+                  } else {
+                      console.log(response);
+                  }
+              }
+          };
+          
+          xhr.onerror = function() {
+              console.log("Request failed");
+          };
+          
+          xhr.send();
+        	
+    });
+    document.getElementById("edit").addEventListener("click", function() {
+  	
+        var1="edit";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `http://localhost:8080/EmployeeServlet/EmployeeServlet?button=Edit`,true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+                
+                if (response.message) {
+                    alert(response.message);
+                } else {
+                    console.log(response);
+                }
+            }
+        };
+        
+        xhr.onerror = function() {
+            console.log("Request failed");
+        };
+        
+        xhr.send();
+      	
+  });
+    document.getElementById("del").addEventListener("click", function() {
+      	
+        var1="delete";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `http://localhost:8080/EmployeeServlet/EmployeeServlet?button=Delete`,true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+                
+                if (response.message) {
+                    alert(response.message);
+                } else {
+                    console.log(response);
+                }
+            }
+        };
+        
+        xhr.onerror = function() {
+            console.log("Request failed");
+        };
+        
+        xhr.send();
+      	
+  });
+    
+    document.getElementById("search").addEventListener("click", function() {
+        var searchName = document.getElementById("name").value;
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `http://localhost:8080/EmployeeServlet/EmployeeServlet?button=Search&name=${searchName}`, true);
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+
+                if (response.name) {
+                    document.getElementById("name").value = response.name;
+                    document.getElementById("number").value = response.number;
+                    document.getElementById("job").value = response.job;
+                    document.getElementById("salary").value = response.salary;
+                } else {
+                    console.log(response);
+                }
+            }
+        };
+
+        xhr.onerror = function() {
+            console.log("Request failed");
+        };
+
+        xhr.send();
+    });
+
+    
+    
+ document.getElementById("clear").addEventListener("click", function() {
+      	
+	 document.getElementById("name").value = "";
+     document.getElementById("number").value ="";
+     document.getElementById("job").value = "";
+     document.getElementById("salary").value = "";
+      	
+  });
+ document.getElementById("exit").addEventListener("click", function() {
+   	
+	 window.close();
+      	
+  });
+    
+    
+    document.getElementById("save").addEventListener("click", function() {
+    console.log(var1);
+  	if(var1==="add"){
+  		console.log("satish");
+  	    	var xhr = new XMLHttpRequest();
+  	        var nameValue = document.getElementById("name").value;
+  	        var numberValue = document.getElementById("number").value;
+  	        var jobValue = document.getElementById("job").value;
+  	        var salaryValue = document.getElementById("salary").value;
+  	 xhr.open("GET", `http://localhost:8080/EmployeeServlet/EmployeeServlet?button=Save&name=${nameValue}&number=${numberValue}&job=${jobValue}&salary=${salaryValue}`
+  	, true);
+  	 		
+  	 xhr.onload = function() {
+  	     if (xhr.status === 200) {
+  	         var response = JSON.parse(xhr.responseText);
+  	         console.log(response);
+  	         if(response.message){
+  	        	 alert(response.message);
+  	         }
+  	     }
+  	 };
+  	 
+  	 xhr.onerror = function() {
+  	     console.log("Request failed");
+  	 };
+  	        xhr.send();
+  	    }
+ 
+    else if(var1==="edit"){
+  		
+  	    	var xhr = new XMLHttpRequest();
+  	        var nameValue = document.getElementById("name").value;
+  	        var numberValue = document.getElementById("number").value;
+  	        var jobValue = document.getElementById("job").value;
+  	        var salaryValue = document.getElementById("salary").value;
+  	 xhr.open("GET", `http://localhost:8080/EmployeeServlet/EmployeeServlet?button=Save&name=${nameValue}&number=${numberValue}&job=${jobValue}&salary=${salaryValue}`
+  	, true);
+  	 		
+  	 xhr.onload = function() {
+  	     if (xhr.status === 200) {
+  	         var response = JSON.parse(xhr.responseText);
+  	         console.log(response);
+  	         if(response.message){
+  	        	 alert(response.message);
+  	         }
+  	     }
+  	 };
+  	 
+  	 xhr.onerror = function() {
+  	     console.log("Request failed");
+  	 };
+  	        xhr.send();
+  	    }
+  	
+    else if(var1==="delete"){
+  		
+	    	var xhr = new XMLHttpRequest();
+	        var nameValue = document.getElementById("name").value;
+	        var numberValue = document.getElementById("number").value;
+	        var jobValue = document.getElementById("job").value;
+	        var salaryValue = document.getElementById("salary").value;
+	 xhr.open("GET", `http://localhost:8080/EmployeeServlet/EmployeeServlet?button=Save&name=${nameValue}&number=${numberValue}&job=${jobValue}&salary=${salaryValue}`
+	, true);
+	 		
+	 xhr.onload = function() {
+	     if (xhr.status === 200) {
+	         var response = JSON.parse(xhr.responseText);
+	         console.log(response);
+	         if(response.message){
+	        	 alert(response.message);
+	         }
+	     }
+	 };
+	 
+	 xhr.onerror = function() {
+	     console.log("Request failed");
+	 };
+	        xhr.send();
+	    }
+      	
+  });
+    
+});
+
+</script>
+</body>
+</html>

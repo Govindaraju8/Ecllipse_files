@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EmployeeFramework</title>
+<style>
+  body, html {
+    height: 80%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 20px;
+  }
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  .button {
+    padding: 8px 20px;
+    background-color: #87CEEB;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .choice {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="heading">Employee Details</div>
+  <label class="label">Employee No</label>
+  <input class="input" type="number" id="number">
+  <label class="label">Employee Name</label>
+  <input class="input" type="text" id="name">
+  <label class="label">Job</label>
+  <input class="input" type="text" id="job">
+  <label class="label">Salary</label>
+  <input class="input" type="number" id="salary">
+  <label class="label">department</label>
+  <input class="input" type="text" id="department">
+  <!--  >select class="choice" id="role">
+    <option value="View Mode">View Mode</option>
+    <option value="Edit Mode">Edit Mode</option>
+  </select-->
+ 
+  <button class="button" id="btnFirst" name="button" value="First">First</button>
+  <button class="button" id="next" name="button" value="Next">Next</button>
+  <button class="button" id="prev" name="button" value="Prev">Prev</button>
+  <button class="button" id="last" name="button" value="Last">Last</button><br><br>
+  
+  
+  <button class="button" id="add">Add</button>
+  <button class="button" id="edit">Edit</button>
+  <button class="button" id="del">Del</button>
+  <button class="button" id="save">Save</button><br><br>
+ 
+  <button class="button" id="search">Search</button>
+  <button class="button" id="clear">Clear</button>
+  <button class="button" id="exit">Exit</button>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+		//var var1="";
+  //add button
+  document.getElementById("add").addEventListener("click", function() {
+	      document.getElementById("number").value ="";
+    	  document.getElementById("name").value = "";
+          document.getElementById("job").value = "";
+          document.getElementById("salary").value = "";
+          document.getElementById("department").value ="";
+          var var1="add";
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "http://localhost:8080/CURDMVC_EMP_FORM/EmployeeServlet?button=Add", true);
+
+          
+          xhr.onload = function() {
+              if (xhr.status === 200) {
+                  var response = JSON.parse(xhr.responseText);
+                  console.log(response);
+                  
+                  if (response.message) {
+                      alert(response.message);
+                  } else {
+                      console.log(response);
+                  }
+              }
+          };
+          
+          xhr.onerror = function() {
+              console.log("Request failed");
+          };
+          
+          xhr.send();
+        	
+    });
+  /*
+  //edit button
+   document.getElementById("edit").addEventListener("click", function() {
+  	
+        var1="edit";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `http://localhost:8080/CURDMVC_EMP_FORM/EmployeeServlet?button=Edit`,true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+                
+                if (response.message) {
+                    alert(response.message);
+                } else {
+                    console.log(response);
+                }
+            }
+        };
+        
+        xhr.onerror = function() {
+            console.log("Request failed");
+        };
+        
+        xhr.send();
+      	
+  });
+  
+  //delete button
+   document.getElementById("del").addEventListener("click", function() {
+      	
+        var1="delete";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `http://localhost:8080/CURDMVC_EMP_FORM/EmployeeServlet?button=Delete`,true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response);
+                
+                if (response.message) {
+                    alert(response.message);
+                } else {
+                    console.log(response);
+                }
+            }
+        };
+        
+        xhr.onerror = function() {
+            console.log("Request failed");
+        };
+        
+        xhr.send();
+      	
+  });
+  
+  //save button
+   document.getElementById("save").addEventListener("click", function() {
+    console.log(var1);
+  	if(var1==="add"){
+  		console.log("govind");
+  	    	var xhr = new XMLHttpRequest();
+  	    	var numberValue = document.getElementById("number").value;
+  	        var nameValue = document.getElementById("name").value;
+  	        var jobValue = document.getElementById("job").value;
+  	        var salaryValue = document.getElementById("salary").value;
+  	      var departmentValue = document.getElementById("department").value;
+  	 xhr.open("GET", `http://localhost:8080/CURDMVC_EMP_FORM/EmployeeServlet?button=Save&number=${numberValue}&name=${nameValue}&job=${jobValue}&salary=${salaryValue}&department=${departmentValue}`
+  	, true);
+  	 		
+  	 xhr.onload = function() {
+  	     if (xhr.status === 200) {
+  	         var response = JSON.parse(xhr.responseText);
+  	         console.log(response);
+  	         if(response.message){
+  	        	 alert(response.message);
+  	         }
+  	     }
+  	 };
+  	 
+  	 xhr.onerror = function() {
+  	     console.log("Request failed");
+  	 };
+  	        xhr.send();
+  	    }
+ 
+    else if(var1==="edit"){
+  		
+  	    	var xhr = new XMLHttpRequest();
+  	    	var numberValue = document.getElementById("number").value;
+  	        var nameValue = document.getElementById("name").value;
+  	        var jobValue = document.getElementById("job").value;
+  	        var salaryValue = document.getElementById("salary").value;
+  	      var departmentValue = document.getElementById("department").value;
+  	 xhr.open("GET", `http://localhost:8080/CURDMVC_EMP_FORM/EmployeeServlet?button=Save&number=${numberValue}&name=${nameValue}&job=${jobValue}&salary=${salaryValue}&department=${departmentValue}`
+  	, true);
+  	 		
+  	 xhr.onload = function() {
+  	     if (xhr.status === 200) {
+  	         var response = JSON.parse(xhr.responseText);
+  	         console.log(response);
+  	         if(response.message){
+  	        	 alert(response.message);
+  	         }
+  	     }
+  	 };
+  	 
+  	 xhr.onerror = function() {
+  	     console.log("Request failed");
+  	 };
+  	        xhr.send();
+  	    }
+  	
+    else if(var1==="delete"){
+  		
+	    	var xhr = new XMLHttpRequest();
+	    	var numberValue = document.getElementById("number").value;
+  	        var nameValue = document.getElementById("name").value;
+  	        var jobValue = document.getElementById("job").value;
+  	        var salaryValue = document.getElementById("salary").value;
+  	      var departmentValue = document.getElementById("department").value;
+  	 xhr.open("GET", `http://localhost:8080/CURDMVC_EMP_FORM/EmployeeServlet?button=Save&number=${numberValue}&name=${nameValue}&job=${jobValue}&salary=${salaryValue}&department=${departmentValue}`
+  	, true);
+	 		
+	 xhr.onload = function() {
+	     if (xhr.status === 200) {
+	         var response = JSON.parse(xhr.responseText);
+	         console.log(response);
+	         if(response.message){
+	        	 alert(response.message);
+	         }
+	     }
+	 };
+	 
+	 xhr.onerror = function() {
+	     console.log("Request failed");
+	 };
+	        xhr.send();
+	    }
+      	
+  });
+    
+*/
+  
+  //clear button 
+  document.getElementById("clear").addEventListener("click", function() {
+       	
+ 	 document.getElementById("name").value = "";
+      document.getElementById("number").value ="";
+      document.getElementById("job").value = "";
+      document.getElementById("salary").value = "";
+      document.getElementById("department").value = "";
+       	
+   });
+  
+  //exit button
+  document.getElementById("exit").addEventListener("click", function() {
+    	
+ 	 window.close();
+       	
+   });
+  });
+  </script>
+  
+</div>
+</body>
+</html>

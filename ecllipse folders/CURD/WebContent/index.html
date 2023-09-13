@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Employee Crud Operations</title>
+</head>
+
+<body>
+<div>
+<center>
+	<h1>Accountants Form Crud Operations</h1>
+	<label>Accountant Id <input type="number" id="id"></label><br><br>
+	<label>Account Name <input type="text" id="name"></label><br><br>
+	<label>Position <input type="text" id="job"></label><br><br>
+	<label>Salary<input type="text" id="sal"></label><br><br>
+	
+
+	<button id="first" onclick="first()">First</button>
+	<button id="Next" onclick="Next()">Next</button>
+	<button id="last" onclick="last()">Last</button>
+	<button id="prev" onclick="prev()">Prev</button>
+	<button id="Add" onclick="addEmployee()">Add</button>
+	<button id="del" onclick="del()">Delete</button>
+	<button id="edit" onclick="edit()">Edit</button>
+	<button id="clear" onclick="clearfield()">Clear</button>
+</center>
+</div>
+
+	<script>
+	//valiadating the inputs
+	 function validateInputs() {
+         var id = document.getElementById('id').value;
+         var name = document.getElementById('name').value;
+         var job = document.getElementById('job').value;
+         var sal = document.getElementById('sal').value;
+
+         if (id === '' || isNaN(id)) {
+             alert('Please enter a valid Accountant Id.');
+             return false;
+         }
+
+         if (name === '') {
+             alert('Please enter an Account Name.');
+             return false;
+         }
+
+         if (job === '') {
+             alert('Please enter a Position.');
+             return false;
+         }
+
+         if (sal === '' || isNaN(sal)) {
+             alert('Please enter a valid Salary.');
+             return false;
+         }
+
+         return true;
+     }
+		var p = 0;
+		// for first implementation
+		function first() {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'Servlet?id=first', true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					var json = JSON.parse(xhr.responseText);
+					var id = document.getElementById('id');
+					var name = document.getElementById('name');
+					var job = document.getElementById('job');
+					var sal = document.getElementById('sal');
+					
+					console.log(json);
+					id.value = json.id;
+					name.value = json.name;
+					job.value = json.job;
+					sal.value = json.sal;
+					
+				}
+
+			}
+			xhr.send();
+			
+			
+		}
+        //last button implemetation
+		function last() {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'Servlet?id=last', true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					var json = JSON.parse(xhr.responseText);
+					var id = document.getElementById('id');
+					var name = document.getElementById('name');
+					var job = document.getElementById('job');
+					var sal = document.getElementById('sal');
+					console.log(json);
+					id.value = json.id;
+					name.value = json.name;
+					job.value = json.job;
+					sal.value = json.sal;
+				}
+
+			}
+			xhr.send();
+			
+		}
+        //next button implemetation
+		function Next() {
+
+			var xhr = new XMLHttpRequest();
+			p++;
+			xhr.open('GET', 'Servlet?id=Next&p=' + p, true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					var json = JSON.parse(xhr.responseText);
+					var id = document.getElementById('id');
+					var name = document.getElementById('name');
+					var job = document.getElementById('job');
+					var sal = document.getElementById('sal');
+					console.log(json);
+					id.value = json.id;
+					name.value = json.name;
+					job.value = json.job;
+					sal.value = json.sal;
+				}
+
+			}
+			xhr.send();
+			
+		}
+        //previous button implemetation
+		function prev() {
+
+
+			var xhr = new XMLHttpRequest();
+			p--;
+			xhr.open('GET', 'Servlet?id=prev&p=' + p, true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					var json = JSON.parse(xhr.responseText);
+					var id = document.getElementById('id');
+					var name = document.getElementById('name');
+					var job = document.getElementById('job');
+					var sal = document.getElementById('sal');
+					console.log(json);
+					id.value = json.id;
+					name.value = json.name;
+					job.value = json.job;
+					sal.value = json.sal;
+				}
+
+			}
+			xhr.send();
+			
+		}
+        //delete button implemetation
+		function del() {
+			var xhr = new XMLHttpRequest();
+			var empno = document.getElementById("id").value;
+			xhr.open('GET', 'Servlet?id=del&empno=' + empno + '&p=' + p, true);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					
+					var data = JSON.parse(xhr.responseText);
+					document.getElementById('id').value = '';
+					document.getElementById('name').value = '';
+					document.getElementById('job').value = '';
+					document.getElementById('sal').value = '';
+					
+				}
+			};
+			xhr.send();
+			document.getElementById("id").readOnly=false;
+			document.getElementById("name").readOnly=false;
+			document.getElementById("job").readOnly=false;
+			document.getElementById("sal").readOnly=false;
+			document.getElementById('id').value = '';
+			document.getElementById('name').value = '';
+			document.getElementById('job').value = '';
+			document.getElementById('sal').value = '';
+		}
+        //add button implemetation
+		function addEmployee() {
+			var xhr = new XMLHttpRequest();
+			var a = document.getElementById("id").value;
+			var b = document.getElementById("name").value;
+			var c = document.getElementById("job").value;
+			var d = document.getElementById("sal").value;
+			
+			xhr.open('GET', "Servlet?id=Add&a=" + a + "&b=" + b + "&c=" + c + "&d=" + d, true);
+			xhr.onreadystatechange = function () {
+				if (xhr.status === 200 && xhr.readyState === 4) {
+					document.getElementById('id').value = '';
+					document.getElementById('name').value = '';
+					document.getElementById('job').value = '';
+					document.getElementById('sal').value = '';
+					var data = JSON.parse(xhr.responseText);
+				}
+			};
+			xhr.send();
+			
+			document.getElementById('id').value = '';
+			document.getElementById('name').value = '';
+			document.getElementById('job').value = '';
+			document.getElementById('sal').value = '';
+
+		}
+        //edit button implemtation
+		function edit(){
+			var xhr = new XMLHttpRequest();
+			var a = document.getElementById("id").value;
+			var b = document.getElementById("name").value;
+			var c = document.getElementById("job").value;
+			var d = document.getElementById("sal").value;
+			
+			xhr.open('GET', "Servlet?id=edit&a=" + a + "&b=" + b + "&c=" + c + "&d=" + d, true);
+			
+			xhr.onreadystatechange = function () {
+				if (xhr.status === 200 && xhr.readyState === 4) {
+					var data = JSON.parse(xhr.responseText);
+					
+				}
+			};
+			xhr.send();
+				
+		}
+        //clear button implementataion
+		function clearfield() {
+			document.getElementById('id').value = '';
+			document.getElementById('name').value = '';
+			document.getElementById('job').value = '';
+			document.getElementById('sal').value = '';
+			
+		}
+	</script>
+</body>
+</html>
